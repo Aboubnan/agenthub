@@ -14,17 +14,6 @@ export interface Workspace {
   created_at: string;
 }
 
-export interface Document {
-  id: string;
-  filename: string;
-  original_filename: string;
-  file_size: number;
-  mime_type: string;
-  workspace_id: string;
-  uploaded_by: string;
-  created_at: string;
-}
-
 export interface Token {
   access_token: string;
   token_type: string;

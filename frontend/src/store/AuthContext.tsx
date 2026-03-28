@@ -5,8 +5,15 @@ import React, {
 	useEffect,
 	ReactNode,
 } from "react";
-import { User } from "../types";
 import { api } from "../services/api";
+
+interface User {
+	id: string;
+	email: string;
+	full_name: string | null;
+	is_active: boolean;
+	created_at: string;
+}
 
 interface AuthContextType {
 	user: User | null;
@@ -25,11 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	);
 	const [isLoading, setIsLoading] = useState(true);
 
-	// Au chargement, si un token existe, on récupère le profil user
 	useEffect(() => {
 		if (token) {
 			api
-				.get<User>("/auth/me")
+				.get("/auth/me")
 				.then((res) => setUser(res.data))
 				.catch(() => {
 					localStorage.removeItem("access_token");

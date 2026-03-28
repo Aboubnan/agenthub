@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../store/AuthContext";
 import { workspaceService } from "../services/api";
-import { Workspace } from "../types";
+
+interface Workspace {
+	id: string;
+	name: string;
+	description: string | null;
+	owner_id: string;
+	created_at: string;
+}
 
 export function DashboardPage() {
 	const { user, logout } = useAuth();
@@ -42,7 +49,6 @@ export function DashboardPage() {
 
 	return (
 		<div className="min-h-screen bg-gray-50">
-			{/* Navbar */}
 			<nav className="bg-white border-b border-gray-100 px-6 py-4">
 				<div className="max-w-5xl mx-auto flex items-center justify-between">
 					<span className="text-xl font-bold text-gray-900">AgentHub</span>
@@ -61,7 +67,6 @@ export function DashboardPage() {
 			</nav>
 
 			<main className="max-w-5xl mx-auto px-6 py-8">
-				{/* Header */}
 				<div className="flex items-center justify-between mb-8">
 					<div>
 						<h1 className="text-2xl font-bold text-gray-900">Mes workspaces</h1>
@@ -77,7 +82,6 @@ export function DashboardPage() {
 					</button>
 				</div>
 
-				{/* Formulaire création */}
 				{showForm && (
 					<form
 						onSubmit={handleCreate}
@@ -122,7 +126,6 @@ export function DashboardPage() {
 					</form>
 				)}
 
-				{/* Liste workspaces */}
 				{isLoading ? (
 					<div className="flex justify-center py-16">
 						<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-500" />
