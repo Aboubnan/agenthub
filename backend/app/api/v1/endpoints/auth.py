@@ -9,6 +9,7 @@ from app.core.security import create_access_token, get_password_hash, verify_pas
 from app.db.base import get_db
 from app.models.user import User
 from app.schemas.user import Token, UserCreate, UserResponse
+from app.api.v1.deps import get_current_user
 
 router = APIRouter()
 
@@ -48,3 +49,9 @@ def login(
         expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.get("/me", response_model=UserResponse)
+def get_me(current_user: User = Depends(get_current_user)):
+    """Retourne le profil de l'utilisateur connecté."""
+    return current_user
